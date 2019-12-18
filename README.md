@@ -25,6 +25,17 @@
 
 - ### Use the restfulr package to retrieve the list of available UCSC genomes from their REST API.
     ```R
+    # Checking requirements are installed if not, then install the required packages
+    if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+    if(!require(S4Vectors))
+    BiocManager::install("S4Vectors")
+    
+    if(!require(restfulr))
+    install.packages("restfulr")
+    
+    # Solution: Fetch list of available UCSC genomes 
     library(restfulr)
     genome <- RestUri("http://api.genome.ucsc.edu/list")
     response <- read(genome$ucscGenomes)
