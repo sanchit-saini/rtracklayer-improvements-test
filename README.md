@@ -23,7 +23,9 @@
 
 
 
-- ### Use the restfulr package to retrieve the list of available UCSC genomes from their REST API.
+- ### Use the restfulr package to retrieve the list of available UCSC genomes from their REST API. Provide a link to a web page with your R code and results/output (possibly using Rmd/Rpubs, http://rpubs.com/).
+    
+    [Link for Compiled Markdown Hosted on Rpubs](http://rpubs.com/sanchit-saini/ucsc_genomes_list)
     ```R
     # Checking requirements are installed if not, then install the required packages
     if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -34,10 +36,12 @@
     
     if(!require(restfulr))
     install.packages("restfulr")
+  
+    library(restfulr)
     
     # Solution: Fetch list of available UCSC genomes 
-    library(restfulr)
-    genome <- RestUri("http://api.genome.ucsc.edu/list")
-    response <- read(genome$ucscGenomes)
-    print(response)
+    api_genome <- RestUri("http://api.genome.ucsc.edu/list")
+    response <- read(api_genome$ucscGenomes)
+    genomes_list <-do.call(rbind.data.frame, response$ucscGenomes)
+    knitr::kable(genomes_list, caption = "List of UCSC genomes")
     ```
