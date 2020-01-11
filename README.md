@@ -3,7 +3,7 @@
 ## Solutions
 
 
-- ### Identify some of the functions in the [Kent library](https://github.com/ucscGenomeBrowser/kent/tree/master/src/lib) that would need to be called to read and write BigBed files.
+- ### Identify some of the functions in the [Kent library](https://github.com/ucscGenomeBrowser/kent/tree/master/src/lib) that would need to be called to read and write BigBed files. Explain (possibly with pseudocode that mentions those functions) how you plan to implement the read/write features.
 
     | Function |task       | Return  |
     | ------------- |:-------------:| -----:|
@@ -19,7 +19,19 @@
     |[bbiWriteChromInfo](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/lib/bbiWrite.c#L50)|Write out information on chromosomes to file|void|
     |[bbiWriteZoomLevels](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/lib/bbiWrite.c#L283)|Write out all the zoom levels and return the number of levels written|int|
     |[bigBedFileClose](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/inc/bigBed.h#L62)|Close down a big wig/big bed file|void|
-
+    #### Examples
+    ##### Read BigBed
+    ```C
+        struct bbiFile *bbi = bigBedFileOpen(fileName);
+        struct lm *lm = lmInit(0); // Memory pool to hold returned list
+        struct bigBedInterval *list = bigBedIntervalQuery(bbi, chrom, start, end, 0, lm);
+        struct bigBedInterval *el;
+        for (el = list; el != NULL; el = el->next){
+          // do something involving chrom, el->start, el->end
+        }
+        lmCleanup(&lm);         // typically do this after each query
+        bigBedFileClose(&bbi);  // typically only do this when finished all queries
+    ```
 
 
 
