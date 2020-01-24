@@ -20,17 +20,28 @@
     |[bbiWriteZoomLevels](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/lib/bbiWrite.c#L283)|Write out all the zoom levels and return the number of levels written|int|
     |[bigBedFileClose](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/inc/bigBed.h#L62)|Close down a big wig/big bed file|void|
     #### Examples
-    ##### Read BigBed
+    ##### Read bigBed
+    1. Open bigBed file with the help of bigBedFileOpen
+    2. Retrive list of chromosomes from file using bbiChromList
+    3. Select chromosome infomation i.e name, start and end from list of chromosomes
+    4. Query data for particular Interval with the help of bigBedIntervalQuery
+    5. Do something involving chrom, el->start, el->end
+    6. Clean Up
     ```C
-        struct bbiFile *bbi = bigBedFileOpen(fileName);
-        struct lm *lm = lmInit(0); // Memory pool to hold returned list
-        struct bigBedInterval *list = bigBedIntervalQuery(bbi, chrom, start, end, 0, lm);
-        struct bigBedInterval *el;
-        for (el = list; el != NULL; el = el->next){
-          // do something involving chrom, el->start, el->end
-        }
-        lmCleanup(&lm);         // typically do this after each query
-        bigBedFileClose(&bbi);  // typically only do this when finished all queries
+    struct bbiFile *bbi = bigBedFileOpen(fileName);
+    struct bbiChromInfo *chromList = bbiChromList(bbi);
+    struct bbiChromInfo *chrom = chromList;
+    char *chromName = chrom->name;
+    int start = 0, end = chrom->size;
+    struct lm *lm = lmInit(0); // Memory pool to hold returned list
+    struct bigBedInterval *list = bigBedIntervalQuery(bbi, chromName, start, end, 0, lm);
+    struct bigBedInterval *el;
+    for (el = list; el != NULL; el = el->next){
+        // do something involving chrom, el->start, el->end
+    }
+    lmCleanup(&lm);         // typically do this after each query
+    bigBedFileClose(&bbi);  // typically only do this when finished all queries
+    bbiChromInfoFreeList(&chromList);
     ```
 
 
