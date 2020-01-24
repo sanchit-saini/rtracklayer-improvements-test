@@ -21,12 +21,12 @@
     |[bigBedFileClose](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/inc/bigBed.h#L62)|Close down a big wig/big bed file|void|
     #### Examples
     ##### Read bigBed
-    1. Open bigBed file with the help of bigBedFileOpen
-    2. Retrive list of chromosomes from file using bbiChromList
+    1. Open bigBed file with the help of `bigBedFileOpen`
+    2. Retrive list of chromosomes from file using `bbiChromList`
     3. Select chromosome infomation i.e name, start and end from list of chromosomes
-    4. Query data for particular Interval with the help of bigBedIntervalQuery
+    4. Query data for particular Interval with the help of `bigBedIntervalQuery`
     5. Do something involving chrom, el->start, el->end
-    6. Clean Up
+    6. Clean Up with the help of `bigBedFileClose`, `bbiChromInfoFreeList`
     ```C
     struct bbiFile *bbi = bigBedFileOpen(fileName);
     struct bbiChromInfo *chromList = bbiChromList(bbi);
