@@ -43,6 +43,23 @@
     bigBedFileClose(&bbi);  // typically only do this when finished all queries
     bbiChromInfoFreeList(&chromList);
     ```
+    
+    ##### Write bigBed
+    1. Read bed file line by line with `lineFileOpen` and chrom.sizes with `twoBitChromHash` if file is 2 bit file else with `bbiChromSizesFromFile`
+    2. If extra fields are present read autoSql file and parse it with `asParseText`, Check Is it a valid autosql file with `asCompareObjAgainstStandardBed` if not throw an error and stop execution 
+    3. Go through bed file and collect chromosomes and statistics with `bbiChromUsageFromBedFile`
+    4. Open bigBed file with the help of `mustOpen`
+    5. Write out dummy headers to reserve space for later with `bbiWriteDummyHeader` and `bbiWriteDummyZooms` on bigBed file
+    6. If extra fields are present write out autoSql string with `mustWrite` on bigBed file
+    7. Write out dummy total summary with `bbiSummaryElementWrite`
+    8. If extra fields are present write out extra fields header and index
+    9. Calculate number of zoom levels with `bbiCalcResScalesAndSizes`
+    10. Write out primary full resolution data in sections, collect stats to use for reductions.
+    11. Write out primary data index inside the tree
+    12. Write out zoom levels on bigbed file.
+    13. If extra fields are present write out extra fields index
+    14. Go back and rewrite header 
+    15. Write end signature and free used memory
 
 
 
