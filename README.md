@@ -19,6 +19,8 @@
     |[bbiWriteChromInfo](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/lib/bbiWrite.c#L50)|Write out information on chromosomes to file|void|
     |[bbiWriteZoomLevels](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/lib/bbiWrite.c#L283)|Write out all the zoom levels and return the number of levels written|int|
     |[bigBedFileClose](https://github.com/ucscGenomeBrowser/kent/blob/0ca4edff9bd7aefe16d3af95d137f61576539929/src/inc/bigBed.h#L62)|Close down a big wig/big bed file|void|
+    #### bigBed File Layout
+    ![](res/layout.png)
     #### Examples
     ##### Read bigBed
     1. Open bigBed file with the help of `bigBedFileOpen`
