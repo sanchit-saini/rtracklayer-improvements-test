@@ -3,7 +3,7 @@
 ## Solutions
 
 - ### Write a test for the track hub export feature (create_track_hub function) in the PeakSegPipeline package.
-   [PeakSeg Pipeline create_track_hub Test](https://github.com/sanchit-saini/PeakSegPipeline/blob/test_create_track_hub_function/tests/testthat/test-CRAN-create-track-hub.R)
+   [PeakSeg Pipeline create_track_hub Test](https://github.com/tdhock/PeakSegPipeline/pull/21/)
 
 
 - ### Identify some of the functions in the [Kent library](https://github.com/ucscGenomeBrowser/kent/tree/master/src/lib) that would need to be called to read and write BigBed files. Explain (possibly with pseudocode that mentions those functions) how you plan to implement the read/write features.
